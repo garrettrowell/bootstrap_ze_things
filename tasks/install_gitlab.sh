@@ -13,4 +13,4 @@ systemctl reload firewalld
 # 2. Add the GitLab package repository and install the package
 curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | sudo bash
 
-EXTERNAL_URL="https://$(hostname)" yum install -y gitlab-ee
+EXTERNAL_URL="https://$(hostname)" GITLAB_ROOT_PASSWORD='puppetlabs' yum install -y gitlab-ee
