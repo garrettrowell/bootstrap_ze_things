@@ -7,7 +7,7 @@ require "json"
 begin
   params = JSON.parse(STDIN.read)
   result = Hash.new
-  uri = URI.parse("https://#{params['host']}/api/v4/groups")
+  uri = URI.parse("https://#{params['host']}/api/v4/projects")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -16,8 +16,9 @@ begin
     'Authorization' => "Bearer #{params['access_token']}",
   }
   data = {
-    'name' => params['group_name'],
-    'path' => params['group_path'],
+    'name'         => params['repo_name'],
+    'import_url'   => params['import_url'],
+    'namespace_id' => params['namespace_id'],
   }
   response = http.post(uri.path, data.to_json, headers)
   result = JSON.parse(response.body)
