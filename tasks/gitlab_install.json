@@ -1,0 +1,16 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "install gitlab",
+  "parameters": {
+    "host" : {
+      "description": "Gitlab external url",
+      "type": "String[1]"
+    },
+    "password": {
+      "description": "What to set the gitlab root password to",
+      "type": "String[1]",
+      "sensitive": true
+    }
+  }
+}

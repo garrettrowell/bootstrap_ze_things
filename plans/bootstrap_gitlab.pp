@@ -10,7 +10,7 @@ plan bootstrap_ze_things::bootstrap_gitlab (
 
   $gitlab_names.each |$gitlab_node| {
     # install gitlab
-    run_task('bootstrap_ze_things::gitlab_install' $targets, user => $user, password => $password)
+    run_task('bootstrap_ze_things::gitlab_install' $targets, host => $gitlab_node, password => $password)
 
     # retrieve the auth token for the user
     $atr = run_task('bootstrap_ze_things::gitlab_auth_token',
