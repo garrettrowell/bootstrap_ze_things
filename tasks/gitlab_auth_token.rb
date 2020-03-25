@@ -20,8 +20,7 @@ begin
     'password'   => params['gitlab_password'],
   }
   response = http.post(uri.path, data.to_json, headers)
-  body_json = JSON.parse(response.body)
-  result['access_token'] = body_json['access_token']
+  result = JSON.parse(response.body)
 rescue Exception => e
   result[:_error] = { msg: e.message,
                       kind: "puppetlabs-example_modules/unknown",
