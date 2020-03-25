@@ -28,3 +28,5 @@ rescue Exception => e
                       details: { class: e.class.to_s },
   }
 end
+
+puts result.to_json
