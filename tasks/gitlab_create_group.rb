@@ -6,7 +6,7 @@ require "json"
 
 begin
   params = JSON.parse(STDIN.read)
-  params = Hash.new
+  result = Hash.new
   uri = URI.parse("https://#{params['host']}/api/v4/groups")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
