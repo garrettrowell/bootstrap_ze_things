@@ -6,7 +6,7 @@ require "json"
 
 begin
   params = JSON.parse(STDIN.read)
-  result = HASH.new
+  result = Hash.new
   uri = URI.parse("https://#{params['gitlab_host']}/oauth/token")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
