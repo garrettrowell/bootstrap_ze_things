@@ -7,7 +7,7 @@ require "json"
 begin
   params = JSON.parse(STDIN.read)
   params = Hash.new
-  uri = URI.parse("https://#{params['gitlab_host']}/api/v4/groups")
+  uri = URI.parse("https://#{params['host']}/api/v4/groups")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
