@@ -6,21 +6,22 @@ require "json"
 
 begin
   params = JSON.parse(STDIN.read)
-  result = Hash.new
-  uri = URI.parse("https://#{params['host']}/oauth/token")
+  params = Hash.new
+  uri = URI.parse("https://#{params['gitlab_host']}/api/v4/groups")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   headers = {
-    'Content-Type' => 'application/json',
+    'Content-Type'  => 'application/json',
+    'Authorization' => "Bearer #{params['access_token']}"
   }
   data = {
-    'grant_type' => 'password',
-    'username'   => params['user'],
-    'password'   => params['password'],
+    'name' => params['group_name'],
+    'path' => params['group_path'],
   }
   response = http.post(uri.path, data.to_json, headers)
-  result = JSON.parse(response.body)
+  body_json = JSON.parse(response.body)
+  result = body_json
 rescue Exception => e
   result[:_error] = { msg: e.message,
                       kind: "puppetlabs-example_modules/unknown",

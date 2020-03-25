@@ -1,0 +1,24 @@
+{
+	"puppet_task_version": 1,
+	"supports_noop": false,
+	"description": "Create a gitlab group",
+	"parameters": {
+		"host" : {
+			"description": "Gitlab host to make https requests to.",
+			"type": "String[1]"
+		},
+		"auth_token": {
+			"description": "The auth token to use when making api requests.",
+			"type": "String[1]",
+      "sensitive": true
+		},
+		"group_name": {
+			"description": "The name of the group.",
+			"type": "String[1]"
+		},
+		"group_path": {
+			"description": "The path of the group.",
+			"type": "String[1]"
+		}
+	}
+}
