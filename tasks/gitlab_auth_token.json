@@ -1,7 +1,20 @@
 {
-  "puppet_task_version": 1,
-  "supports_noop": false,
-  "description": "A short description of this task",
-  "parameters": {
-  }
+	"puppet_task_version": 1,
+	"supports_noop": false,
+	"description": "Request a gitlab auth token",
+	"parameters": {
+		"gitlab_host" : {
+			"description": "Gitlab host to make https requests to.",
+			"type": "String[1]"
+		},
+		"gitlab_user": {
+			"description": "The user to request an auth token for.",
+			"type": "String[1]"
+		},
+		"gitlab_password": {
+			"description": "The password to use to request auth token",
+			"type": "String[1]",
+			"sensitive": true
+		}
+	}
 }
