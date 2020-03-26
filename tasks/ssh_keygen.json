@@ -1,0 +1,20 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Create an ssh keypair and return the pubkey",
+  "parameters": {
+    "keyfile" : {
+      "description": "Absolute filepath to the keyfile to generate.",
+      "type": "String[1]"
+    },
+    "password": {
+      "description": "The new keys password.",
+      "type": "Optional[String[1]]",
+      "sensitive": true
+    },
+    "comment": {
+      "description": "The comment to add to the key. This is usually an email address",
+      "type": "String[1]"
+    }
+  }
+}
