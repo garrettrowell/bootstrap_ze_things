@@ -1,0 +1,25 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Add an ssh key to the user of an access token",
+  "parameters": {
+    "host" : {
+      "description": "Gitlab host to make https requests to.",
+      "type": "String[1]"
+    },
+    "access_token": {
+      "description": "The access token to use when making api requests.",
+      "type": "String[1]",
+      "sensitive": true
+    },
+    "title": {
+      "description": "The title to give the key.",
+      "type": "String[1]"
+    },
+    "key": {
+      "description": "The string contents of the key to add.",
+      "type": "String[1]",
+      "sensitive": true
+    }
+  }
+}
