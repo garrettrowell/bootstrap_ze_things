@@ -1,12 +1,12 @@
 plan bootstrap_ze_things::code_manager (
   TargetSpec $puppetmaster,
   TargetSpec $gitlab,
-  String[1] $ssh_comment     = 'PE Code Manager',
-  String[1] $ssh_password    = '',
-  String[1] $ssh_keyfile     = '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
-  String[1] $gitlab_user     = 'root',
-  String[1] $gitlab_password = 'puppetlabs',
-  String[1] $gitlab_host,
+  String[1]  $ssh_comment     = 'PE Code Manager',
+  String     $ssh_password    = '',
+  String[1]  $ssh_keyfile     = '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
+  String[1]  $gitlab_user     = 'root',
+  String[1]  $gitlab_password = 'puppetlabs',
+  String[1]  $gitlab_host,
 ) {
     # generate key-pair on puppetmaster
     $skr = run_task('bootstrap_ze_things::ssh_keygen',
@@ -22,7 +22,7 @@ plan bootstrap_ze_things::code_manager (
 
     # add the sshkey to the users account
     run_task('bootstrap_ze_things::gitlab_add_sshkey',
-             $gitlab, host => $gitlab_host, access_token => $access_token, title => $sshkey_comment, key => $sshkey)
+             $gitlab, host => $gitlab_host, access_token => $access_token, title => $ssh_comment, key => $sshkey)
 
 
 }

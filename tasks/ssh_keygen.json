@@ -9,7 +9,7 @@
     },
     "password": {
       "description": "The new keys password.",
-      "type": "Optional[String[1]]",
+      "type": "Optional[String]",
       "sensitive": true
     },
     "comment": {

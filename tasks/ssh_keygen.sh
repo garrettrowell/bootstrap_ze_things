@@ -7,4 +7,4 @@ ssh-keygen -t rsa -b 4096 -N "${PT_password}" -f $PT_keyfile -C "${PT_comment}" 
 
 pubkey=$(cat ${PT_keyfile}.pub)
 
-echo "{\"result\":{"public_key":\"${pubkey}\"}}"
+echo "{\"public_key\":\"${pubkey}\"}"
