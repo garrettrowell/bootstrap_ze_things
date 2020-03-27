@@ -7,7 +7,13 @@
 class bootstrap_ze_things::puppet::classification (
   String $r10k_remote,
   String $r10k_private_key = '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
+  String $cd4pe_version    = '3.x',
 ){
+  # Need to bootstrap the classifier.yaml before we can use the
+  #   node_group resource
+  Node_group {
+    require => File['classifier.yaml'],
+  }
 
   # Since the `PE Master` NG exists in a default install and the
   #   `puppet_enterprise::profile::master` class is already configured,
@@ -20,7 +26,18 @@ class bootstrap_ze_things::puppet::classification (
         'r10k_remote'                 => $r10k_remote,
       },
     },
-    require => File['classifier.yaml'],
   }
 
+  # Create NG for CD4PE
+  node_group { 'Continuous Delivery for PE':
+    ensure               => 'present',
+    classes              => {
+      'cd4pe' => {
+        'cd4pe_version' => $cd4pe_version,
+      }
+    },
+    environment          => 'production',
+    override_environment => 'false',
+    parent               => 'PE Infrastructure',
+  }
 }
