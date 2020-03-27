@@ -7,6 +7,7 @@ plan bootstrap_ze_things::code_manager (
   String[1]  $gitlab_user     = 'root',
   String[1]  $gitlab_password = 'puppetlabs',
   String[1]  $gitlab_host,
+  String[1]  $r10k_remote     = 'git@gitlab.puppetdebug.vlan:puppet/control-repo.git',
 ) {
 
   # generate key-pair on puppetmaster
@@ -25,26 +26,34 @@ plan bootstrap_ze_things::code_manager (
   # Do some hacky bs to get node_group to work on master
   $puppetmaster.apply_prep
   apply($puppetmaster) {
-
-    file { 'classifier.yaml':
-      ensure  => file,
-      mode    => '0644',
-      path    => Deferred('bootstrap_ze_things::node_manager_config_path'),
-      content => epp('bootstrap_ze_things/node_manager/classifier.yaml.epp', {
-        server => 'master.puppetdebug.vlan',
-        }),
+    class { 'bootstrap_ze_things::puppet::classification::node_group_workaround':
+      master => 'master.puppetdebug.vlan',
     }
 
-
-    node_group { 'PE Master':
-      data    => {
-        'puppet_enterprise::profile::master' =>  {
-          'code_manager_auto_configure' => true,
-          'r10k_private_key'            => '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
-          'r10k_remote'                 => 'git@gitlab.puppetdebug.vlan:puppet/control-repo.git',
-        }
-      },
-      require => File['classifier.yaml'],
+    class { 'bootstrap_ze_things::puppet::classification::code_manager':
+      r10k_remote      => $r10k_remote,
+      r10k_private_key => $ssh_keyfile,
     }
+
+    #    file { 'classifier.yaml':
+    #      ensure  => file,
+    #      mode    => '0644',
+    #      path    => Deferred('bootstrap_ze_things::node_manager_config_path'),
+    #      content => epp('bootstrap_ze_things/node_manager/classifier.yaml.epp', {
+    #        server => 'master.puppetdebug.vlan',
+    #        }),
+    #    }
+    #
+    #
+    #    node_group { 'PE Master':
+    #      data    => {
+    #        'puppet_enterprise::profile::master' =>  {
+    #          'code_manager_auto_configure' => true,
+    #          'r10k_private_key'            => '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
+    #          'r10k_remote'                 => 'git@gitlab.puppetdebug.vlan:puppet/control-repo.git',
+    #        }
+    #      },
+    #      require => File['classifier.yaml'],
+    #    }
   }
 }
