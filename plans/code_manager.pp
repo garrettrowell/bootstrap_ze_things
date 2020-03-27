@@ -18,7 +18,7 @@ plan bootstrap_ze_things::code_manager (
   $master_target = get_target($puppetmaster)
 
   # FQDN Hash
-  fqdns = {
+  $fqdns = {
     'master' => $master_target.facts['networking']['fqdn'],
     'gitlab' => $gitlab_target.facts['networking']['fqdn'],
   }
