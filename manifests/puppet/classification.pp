@@ -3,13 +3,11 @@
 # A description of what this class does
 #
 # @example
-#   include bootstrap_ze_things::puppet::classification::code_manager
-class bootstrap_ze_things::puppet::classification::code_manager (
+#   include bootstrap_ze_things::puppet::classification
+class bootstrap_ze_things::puppet::classification (
   String $r10k_remote,
-  String $r10k_private_key = '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa'
+  String $r10k_private_key = '/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa',
 ){
-
-  include bootstrap_ze_things::puppet::classification::node_group_workaround
 
   # Since the `PE Master` NG exists in a default install and the
   #   `puppet_enterprise::profile::master` class is already configured,
@@ -24,4 +22,5 @@ class bootstrap_ze_things::puppet::classification::code_manager (
     },
     require => File['classifier.yaml'],
   }
+
 }

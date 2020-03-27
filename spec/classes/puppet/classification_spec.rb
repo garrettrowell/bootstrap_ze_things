@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'bootstrap_ze_things::puppet::classification::node_group_workaround' do
+describe 'bootstrap_ze_things::puppet::classification' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
