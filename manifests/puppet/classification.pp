@@ -40,4 +40,13 @@ class bootstrap_ze_things::puppet::classification (
     override_environment => 'false',
     parent               => 'PE Infrastructure',
   }
+
+  # Create EG for staging environment
+  node_group { 'Staging environment':
+    ensure               => 'present',
+    description          => 'Staging nodes',
+    environment          => 'staging',
+    override_environment => 'true',
+    parent               => 'All Environments',
+  }
 }
