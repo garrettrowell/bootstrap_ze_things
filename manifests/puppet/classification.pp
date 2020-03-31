@@ -37,7 +37,7 @@ class bootstrap_ze_things::puppet::classification (
       }
     },
     environment          => 'production',
-    override_environment => 'false',
+    override_environment => false,
     parent               => 'PE Infrastructure',
   }
 
@@ -46,7 +46,7 @@ class bootstrap_ze_things::puppet::classification (
     ensure               => 'present',
     description          => 'Staging nodes',
     environment          => 'staging',
-    override_environment => 'true',
+    override_environment => true,
     parent               => 'All Environments',
   }
 }
